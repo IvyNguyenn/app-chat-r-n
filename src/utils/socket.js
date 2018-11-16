@@ -32,13 +32,16 @@ export default function() {
         return socket.on("REGISTER-SUCCESS", username);
     }
 
+    function fetchUsers(users) {
+        return socket.on("SEND-USERS", users);
+    }
+
     function fetchMessages(messages) {
-        return socket.on("SEND-MESSAGE", messages);
-        //console.log("============= FETCH MESSAGES =============");
+        return socket.on("SEND-MESSAGES", messages);
     }
 
     function onSendMessage(message) {
-        return socket.emit("SEND-MESSAGE", message);
+        return socket.emit("SEND-MESSAGES", message);
     }
 
     function onTyping(username) {
@@ -61,6 +64,7 @@ export default function() {
         stopTyping,
         loginSuccess,
         registerSuccess,
+        fetchUsers,
         fetchMessages,
         onSendMessage,
         onTyping,

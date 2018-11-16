@@ -4,6 +4,7 @@ import { createStackNavigator } from "react-navigation";
 import ChatScreen from "./src/views/ChatScreen";
 import Login from "./src/views/Login";
 import Register from "./src/views/Register";
+import UserScreen from "./src/views/UserScreen";
 
 export default class App extends Component {
     render() {
@@ -19,7 +20,8 @@ const RootStack = createStackNavigator(
     {
         Login,
         ChatScreen,
-        Register
+        Register,
+        UserScreen
     },
     // {
     //     headerMode: "none",

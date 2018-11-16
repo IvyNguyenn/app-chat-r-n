@@ -98,7 +98,7 @@ export default class Login extends Component {
                         {"Login"}
                     </Text>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 2 }}>
                     <TextInput
                         style={styles.textInput}
                         placeholder=" Username"
@@ -112,8 +112,6 @@ export default class Login extends Component {
                         onChangeText={password => this.setState({ password })}
                         value={this.state.password}
                     />
-                </View>
-                <View style={{ flex: 1 }}>
                     <Button
                         title="Login"
                         color="green"

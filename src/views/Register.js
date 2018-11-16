@@ -18,7 +18,6 @@ export default class Register extends Component {
 
     constructor(props) {
         super(props);
-        e = this;
         this.state = {
             client: socket(),
             username: "ngochoang2",
@@ -94,7 +93,7 @@ export default class Register extends Component {
                         {"Register"}
                     </Text>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 2 }}>
                     <TextInput
                         style={styles.textInput}
                         placeholder=" Username"
@@ -117,8 +116,6 @@ export default class Register extends Component {
                         }
                         value={this.state.confirmPass}
                     />
-                </View>
-                <View style={{ flex: 1, borderRadius: 40 }}>
                     <Button
                         title="Register"
                         color="green"

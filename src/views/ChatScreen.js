@@ -1,64 +1,21 @@
 import React, { Component } from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    ScrollView,
-    AsyncStorage,
-    Image
-} from "react-native";
+import { View, Text, ScrollView, Image } from "react-native";
 import Form from "../components/Message/Form";
-import * as Color from "../constrains/color";
+import HeaderChat from "../components/Header/HeaderChat";
+import styles from "../utils/styles";
 import socket from "../utils/socket";
-
-class LogoTitle extends Component {
-    render() {
-        const { username } = this.props;
-        return (
-            <View>
-                <View style={styles.containerRow}>
-                    <Text style={styles.title}>SEND LOVELY MESSAGES</Text>
-                    <Image
-                        style={{
-                            marginHorizontal: 10,
-                            width: 30,
-                            height: 30
-                        }}
-                        source={require("../../public/images/icons8_Two_Hearts_50px.png")}
-                    />
-                </View>
-                {username ? (
-                    <View style={{ flexDirection: "row" }}>
-                        <Text style={styles.username}>{username}</Text>
-                        <View
-                            style={{
-                                width: 7,
-                                height: 7,
-                                backgroundColor: Color.onlineColor,
-                                borderRadius: 7,
-                                marginHorizontal: 5,
-                                marginVertical: 7
-                            }}
-                        />
-                    </View>
-                ) : null}
-            </View>
-        );
-    }
-}
 
 export default class ChatScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: (
-                <LogoTitle username={navigation.getParam("username")} />
+                <HeaderChat username={navigation.getParam("friendname")} />
             )
         };
     };
 
     constructor(props) {
         super(props);
-        e = this;
         this.state = {
             client: socket(),
             messages: [],
@@ -81,11 +38,13 @@ export default class ChatScreen extends Component {
     };
 
     componentDidMount() {
+        console.log("========== componentDidMount =============");
         const { navigation } = this.props;
-        const username = navigation.getParam("username");
+        let username = navigation.getParam("username");
         this.setState({ username });
         this.state.client.fetchMessages(messages => {
             this.setState({ messages });
+            console.log("===== messages =====");
             console.log(messages);
         });
         this.state.client.onTyping(username => {
@@ -141,7 +100,7 @@ const BalloonMessages = props =>
                 ) : (
                     <View style={{ flexDirection: "row" }}>
                         <Image
-                            style={styles.avatar}
+                            style={styles.avatarChat}
                             source={require("../../public/images/studio-2.jpg")}
                         />
                         <Text style={styles.balloonMessageLeft}>
@@ -152,64 +111,6 @@ const BalloonMessages = props =>
             </View>
         );
     });
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "white"
-    },
-    container1: {
-        flex: 1,
-        justifyContent: "flex-end"
-    },
-    containerRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    title: {
-        textAlign: "center",
-        color: Color.mainColor,
-        fontWeight: "bold"
-    },
-    textInput: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
-        justifyContent: "flex-start"
-    },
-    balloonMessageRight: {
-        backgroundColor: Color.mainColor,
-        padding: 10,
-        marginHorizontal: 10,
-        marginVertical: 3,
-        borderRadius: 10,
-        maxWidth: "55%"
-    },
-    balloonMessageLeft: {
-        backgroundColor: "#F1F0F0",
-        padding: 10,
-        marginHorizontal: 5,
-        marginVertical: 3,
-        borderRadius: 10,
-        maxWidth: "55%"
-    },
-    balloonMessageText: {
-        color: "#FFFFFF"
-    },
-    floatRight: {
-        alignItems: "flex-end"
-    },
-    username: {
-        color: "#9E94A8"
-    },
-    avatar: {
-        width: 30,
-        height: 30,
-        borderRadius: 30,
-        margin: 5
-    }
-});
 
 const getId = () => {
     return Math.random()
